@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!-- 
+	Michael Morris @ Cote Systems
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+		<title>Hello World</title>
+		
+		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			var pictureSource;		// Picture source type
+			var destinationType;	// Sets the format of the returned value.
+			
+			// Wait for PhoneGap to connect with the device.
+			// 
+			function onDeviceReady() {
+				pictureSource 	= navigator.camera.PictureSourceType;
+				destinationType = navigator.camera.DestinationType;
+			}
+			
+			// Handle picture retrieval from camera
+			//
+			function getPictureFromCamera() {
+				navigator.camera.getPicture(onSuccess, onFail, { quality: 50, destinationType: Camera.DestinationType.FILE_URI });
+				
+				function onSuccess(imageURI) {
+					$('#camera-image').css({'background-image': 'url('+imageURI+')', 'background-size': '50%'});
+				}
+			
+				function onFail(message) {
+					alert('Failed because: ' + message);
+					console.log('Failed to get an image');
+				}
+			
+			}
+			
+			// Handle picture retrieval from gallery
+			//
+			function getPictureFromGallery() {
+				navigator.camera.getPicture(onSuccess, onFail, { quality: 50, destinationType: Camera.DestinationType.fILE_URI, sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY });
+				
+				function onSuccess(imageURI) {
+					$('#camera-image').css({'background-image': 'url('+imageURI+')', 'background-size': '50%'});
+				}
+				
+				function onFail(message) {
+					alert('Failed because: ' + message);
+					console.log('Failed to get an image');
+				}
+			}
+			
+			// Handle photo upload.
+			//
+			/*function uploadPhoto() {
+			
+				function onSuccess() {
+				
+				}
+				
+				function onFail(message) {
+					alert('Failed because: ' + message);
+					console.log('Failed to get an image');
+				}
+			}*/
+			
+		</script>
+    </head>
+    <body>
+        <div class="app">
+            <h1>Camera Test</h1>
+			<button onclick="getPictureFromCamera();">Photo from File</button><br>
+			<button onclick="getPictureFromGallery();">Photo from Gallery</button><br>
+			
+			<img style="display:none;width:60px;height:60px;" id="thumbImage" src="" />
+			<img style="display:none;" id="largeImage" src="" />
+			
+            
+        </div>
+        
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+    </body>
+</html>
