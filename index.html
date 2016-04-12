@@ -30,7 +30,15 @@
 				navigator.camera.getPicture(onSuccess, onFail, { quality: 50, destinationType: Camera.DestinationType.FILE_URI });
 				
 				function onSuccess(imageURI) {
-					$('#camera-image').css({'background-image': 'url('+imageURI+')', 'background-size': '50%'});
+					var thumbImage = document.getElementById('thumbImage');
+					thumbImage.style.display = 'block';
+					thumbImage.src = imageURI;
+
+					var largeImage = document.getElementById('largeImage');
+					largeImage.style.display = 'block';
+					largeImage.src = imageURI;
+					
+					//$('#camera-image').css({'background-image': 'url('+imageURI+')', 'background-size': '50%'});
 				}
 			
 				function onFail(message) {
@@ -46,7 +54,15 @@
 				navigator.camera.getPicture(onSuccess, onFail, { quality: 50, destinationType: Camera.DestinationType.fILE_URI, sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY });
 				
 				function onSuccess(imageURI) {
-					$('#camera-image').css({'background-image': 'url('+imageURI+')', 'background-size': '50%'});
+					var thumbImage = document.getElementById('thumbImage');
+					thumbImage.style.display = 'block';
+					thumbImage.src = imageURI;
+
+					var largeImage = document.getElementById('largeImage');
+					largeImage.style.display = 'block';
+					largeImage.src = imageURI;
+					
+					//$('#camera-image').css({'background-image': 'url('+imageURI+')', 'background-size': '50%'});
 				}
 				
 				function onFail(message) {
@@ -74,13 +90,12 @@
     <body>
         <div class="app">
             <h1>Camera Test</h1>
-			<button onclick="getPictureFromCamera();">Photo from File</button><br>
-			<button onclick="getPictureFromGallery();">Photo from Gallery</button><br>
+			<button class="button" onclick="getPictureFromCamera();">Photo from File</button><br>
+			<button class="button" onclick="getPictureFromGallery();">Photo from Gallery</button><br>
 			
 			<img style="display:none;width:60px;height:60px;" id="thumbImage" src="" />
 			<img style="display:none;" id="largeImage" src="" />
 			
-            
         </div>
         
         <script type="text/javascript" src="js/index.js"></script>
